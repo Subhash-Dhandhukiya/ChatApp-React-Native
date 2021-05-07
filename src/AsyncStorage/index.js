@@ -1,9 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
+//this is user unique id
 export const keys={
     uuid:'uuid'
 };
 
+//store data to asyncStorage
 const setAsyncStorage=async(key,item)=>{
     try {
         await AsyncStorage.setItem(key,item);
@@ -12,7 +14,7 @@ const setAsyncStorage=async(key,item)=>{
     }
 }
 
-
+//get Data from AsyncStorage
 const getAsyncStorage=async(key)=>{
     try {
         const value=await AsyncStorage.getItem(key);
@@ -28,6 +30,8 @@ const getAsyncStorage=async(key)=>{
     }
 }
 
+
+//clear AsyncStorage
 const clearAsyncStorage=()=>{
     try {
         await AsyncStorage.clear();
