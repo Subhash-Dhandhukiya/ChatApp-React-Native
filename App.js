@@ -1,11 +1,9 @@
 import React from 'react'
-import { View, Text } from 'react-native'
+import NavContainer from './src/Navigation'
 
 const App = () => {
   return (
-    <View>
-      <Text>This is chat App</Text>
-    </View>
+    <NavContainer/>
   )
 }
 
