@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, SafeAreaView, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import Button from '../../Component/button'
 import { color } from '../../Utility'
-import { LOGIN } from '../../Utility/Constant/Route'
+import { LOGIN, SIGNUP } from '../../Utility/Constant/Route'
 
 const Welcome = ({ navigation }) => {
     return (
@@ -13,7 +13,7 @@ const Welcome = ({ navigation }) => {
                 </View>
                 <View style={{ marginTop: 10, paddingLeft: 20 }}>
                     <Text style={styles.txt}>Please login or sign up to continue using</Text>
-                    <Text style={styles.txt}>our app</Text>
+                    <Text style={styles.txt}>our app.</Text>
                 </View>
             </View>
 
@@ -33,10 +33,10 @@ const Welcome = ({ navigation }) => {
                     <Text style={styles.txt2}>Email</Text>
                 </View>
                 <View style={{alignItems:'center',marginTop:20}}>
-                    <Button  title="Sign up" onPress={() => console.log("Pressed")} />
+                    <Button  title="Sign up" onPress={() => navigation.navigate(SIGNUP)} />
                     <View style={{flexDirection:'row'}}>
                         <Text>You already have an account?</Text>
-                        <TouchableOpacity onPress={()=>console.log("This is login")}>
+                        <TouchableOpacity onPress={()=>navigation.navigate(LOGIN)}>
                             <Text style={{color:color.BLUE}}> Login</Text>
                         </TouchableOpacity>
                     </View>
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     txt: {
         fontSize: 14,
-        color: color.FONT,
+        color: color.FONT, 
         fontWeight: 'normal'
     },
     middle: {

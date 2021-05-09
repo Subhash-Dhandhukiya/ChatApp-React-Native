@@ -1,33 +1,54 @@
 import React from 'react'
-import {TextInput,Text} from 'react-native'
-import styles from './style'
-import {color} from '../../Utility'
+import {TextInput,Text, StyleSheet} from 'react-native'
+import {appStyle, color} from '../../Utility'
 
-export default({
+const Input=({
     placeholder,
     inputStyle,
     placeholderTextColor,
     secureTextEntry,
-    onChangeEditing,
     onChangeText,
     value,
     onSubmitEditing,
     onBlur,
     onFocus,
     numberOfLines,
-})=>(
-    <TextInput
-        style={[styles.input,inputStyle]}
-        value={value}
-        numberOfLines={numberOfLines}
-        onChangeText={onChangeText}
-        secureTextEntry={secureTextEntry}
-        placeholder={placeholder}
-        placeholderTextColor={
-            placeholderTextColor?placeholderTextColor:color.WHITE
-        }
-        onSubmitEditing={onSubmitEditing}
-        onBlur={onBlur}
-        onFocus={onFocus}
-    />
-)
+    returnKeyType
+})=>{
+    return(
+        <TextInput
+            style={[styles.input,inputStyle]}
+            value={value}
+            numberOfLines={numberOfLines}
+            onChangeText={onChangeText}
+            secureTextEntry={secureTextEntry}
+            placeholder={placeholder}
+            placeholderTextColor={color.PLACEHOLDER}
+            onSubmitEditing={onSubmitEditing}
+            onBlur={onBlur}
+            onFocus={onFocus}  
+            returnKeyType={returnKeyType}
+        />
+    );
+}
+
+export default Input;
+
+const styles=StyleSheet.create({
+    input:{
+        paddingLeft:16,
+        backgroundColor:appStyle.fieldBgColor,
+        width:"90%",
+        color:appStyle.fieldTextColor,
+        height:appStyle.fieldHeight,
+        alignSelf:'center',
+        marginVertical:appStyle.fieldMarginVertical,
+        fontSize:16,
+        borderWidth:1,
+        borderColor:color.BLUE,
+        borderTopLeftRadius:0,
+        borderTopRightRadius:12,
+        borderBottomLeftRadius:12,
+        borderBottomRightRadius:0
+    }
+})

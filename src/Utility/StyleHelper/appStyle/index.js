@@ -24,8 +24,8 @@ const getFieldDimensions=()=>{
     }
 }
 
-export const fieldBgColor=color.BLACK;
-export const fieldTextColor=color.WHITE;
+export const fieldBgColor=color.WHITE;
+export const fieldTextColor=color.BLACK;
 export const logoBgColor=color.BLUE;
 export const fieldHeight=getFieldDimensions().fieldHeight;
 export const fieldMarginVertical=getFieldDimensions().fieldMarginVertical;

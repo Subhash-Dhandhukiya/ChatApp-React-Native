@@ -3,9 +3,9 @@ import {NavigationContainer} from '@react-navigation/native'
 import {createStackNavigator} from '@react-navigation/stack'
 
 //import all Screen
-import {Login,Signup,Dashboard,Welcome} from '../Container';
+import {Login,Signup,Dashboard,Welcome, Splash} from '../Container';
 import {color} from '../Utility';
-import {LOGIN,SIGNUP,WELCOME,DASHBOARD} from '../Utility/Constant/Route'
+import {LOGIN,SIGNUP,WELCOME,DASHBOARD, SPLASH} from '../Utility/Constant/Route'
 import { Logout } from '../../assets/Icon';
 
 const Stack=createStackNavigator();
@@ -14,7 +14,7 @@ function NavContainer(){
     return (
         <NavigationContainer>
             <Stack.Navigator 
-                initialRouteName={WELCOME}
+                initialRouteName={SPLASH}
                 screenOptions={{
                     headerShown:true,
                     headerStyle:{backgroundColor:color.WHITE},
@@ -27,6 +27,11 @@ function NavContainer(){
 
                 }}
             >
+                <Stack.Screen 
+                    name={SPLASH} 
+                    component={Splash}
+                    options={{headerShown:false}}
+                />
                 <Stack.Screen 
                     name={WELCOME} 
                     component={Welcome}

@@ -2,10 +2,12 @@ const WELCOME="WELCOME"
 const LOGIN="LOGIN"
 const SIGNUP="SIGNUP"
 const DASHBOARD="DASHBOARD"
+const SPLASH="SPLASH"
 
 export {
     WELCOME,
     LOGIN,
     SIGNUP,
-    DASHBOARD
+    DASHBOARD,
+    SPLASH
 };
