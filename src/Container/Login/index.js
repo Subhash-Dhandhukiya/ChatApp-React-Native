@@ -1,14 +1,14 @@
 import React, { useContext, useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native'
 import Button from '../../Component/button'
 import Input from '../../Component/Input'
 import { color } from '../../Utility'
-import { DASHBOARD, SIGNUP } from '../../Utility/Constant/Route'
+import { BOTTOMTAB, DASHBOARD, SIGNUP } from '../../Utility/Constant/Route'
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import { Store } from '../../Context/store'
 import { loginRequest } from '../../Network'
 import { setAsyncStorage, keys } from '../../AsyncStorage'
-import { setUniqueValue } from '../../Utility/Constant'
+import { setUniqueValue, keyboardVerticalOffset } from '../../Utility/Constant'
 
 const Login = ({ navigation }) => {
 
@@ -27,6 +27,7 @@ const Login = ({ navigation }) => {
     }
 
     const onLoginPress = () => {
+        Keyboard.dismiss();
         if (!email) {
             alert("Email is required")
         } else if (!password) {
@@ -36,7 +37,7 @@ const Login = ({ navigation }) => {
             loginRequest(email, password)
                 .then((res) => {
 
-                    if(!res.addtionalUserInfo){
+                    if (!res.additionalUserInfo) {
                         loadingContext.loadingDispatch(LOADING_STOP);
                         alert(res);
                         return;
@@ -45,7 +46,7 @@ const Login = ({ navigation }) => {
                     setAsyncStorage(keys.uuid, res.user.uid);
                     setUniqueValue(res.user.uid);
                     loadingContext.loadingDispatch(LOADING_STOP);
-                    navigation.replace(DASHBOARD);
+                    navigation.replace(BOTTOMTAB);
                 })
                 .catch(error => {
                     loadingContext.loadingDispatch(LOADING_STOP);
@@ -57,50 +58,55 @@ const Login = ({ navigation }) => {
 
     return (
         <SafeAreaView style={styles.container}>
-            <View>
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
                 <View>
-                    <Text style={styles.headerText}>Login Now</Text>
-                </View>
-                <View style={{ marginTop: 10, paddingLeft: 20 }}>
-                    <Text style={styles.txt}>Please login to continue using our app</Text>
-                </View>
-            </View>
-
-            {/*This is Input Field */}
-            <SafeAreaView style={styles.middle}>
-
-                <Input
-                    placeholder="Email"
-                    numberOfLines={1}
-                    value={email}
-                    onChangeText={(text) => handleOnChange('email', text)}
-                />
-                <Input
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    numberOfLines={1}
-                    value={password}
-                    onChangeText={(text) => handleOnChange('password', text)}
-                />
-            </SafeAreaView>
-
-            <View style={{ marginTop: 10 }}>
-                <View style={{ alignItems: 'center' }}>
-
-                    <Button
-                        title="Login"
-                        onPress={() => onLoginPress()}
-                    />
-
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text>Don't have an account?</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate(SIGNUP)}>
-                            <Text style={{ color: color.BLUE }}> Sign up</Text>
-                        </TouchableOpacity>
+                    <View>
+                        <Text style={styles.headerText}>Login Now</Text>
+                    </View>
+                    <View style={{ marginTop: 10, paddingLeft: 20 }}>
+                        <Text style={styles.txt}>Please login to continue using our app</Text>
                     </View>
                 </View>
-            </View>
+
+                {/*This is Input Field */}
+                <SafeAreaView style={styles.middle}>
+
+                    <Input
+                        placeholder="Email"
+                        numberOfLines={1}
+                        value={email}
+                        onChangeText={(text) => handleOnChange('email', text)}
+                        returnKeyType="next"
+                    />
+                    <Input
+                        placeholder="Password"
+                        secureTextEntry={true}
+                        numberOfLines={1}
+                        value={password}
+                        onChangeText={(text) => handleOnChange('password', text)}
+                        keybordType="numeric"
+                    />
+                </SafeAreaView>
+
+                <View style={{ marginTop: 10 }}>
+                    <View style={{ alignItems: 'center' }}>
+
+                        <Button
+                            title="Login"
+                            onPress={() => onLoginPress()}
+                        />
+
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text>Don't have an account?</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate(SIGNUP)}>
+                                <Text style={{ color: color.BLUE }}> Sign up</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
+            </KeyboardAvoidingView>
         </SafeAreaView>
+
     )
 }
 

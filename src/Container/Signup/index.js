@@ -1,11 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import Button from '../../Component/button'
 import Input from '../../Component/Input'
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import { Store } from '../../Context/store'
 import { color } from '../../Utility'
-import { DASHBOARD, LOGIN, } from '../../Utility/Constant/Route'
+import { BOTTOMTAB, DASHBOARD, LOGIN, } from '../../Utility/Constant/Route'
 import { AddUser, signupRequest } from '../../Network'
 import firebase from '../../Firebase/config'
 import { setAsyncStorage, keys } from '../../AsyncStorage'
@@ -27,6 +27,7 @@ const Signup = ({ navigation }) => {
     }
 
     const onSignUpPress = () => {
+        Keyboard.dismiss();
         if (!name) {
             alert("Name is required")
         } else if (!email) {
@@ -55,7 +56,7 @@ const Signup = ({ navigation }) => {
                             setAsyncStorage(keys.uuid, uid);
                             setUniqueValue(uid);
                             loadingContext.loadingDispatch(LOADING_STOP);
-                            navigation.replace(DASHBOARD)
+                            navigation.replace(BOTTOMTAB)
                         })
                         .catch((error) => {
                             loadingContext.loadingDispatch(LOADING_STOP);
@@ -87,6 +88,7 @@ const Signup = ({ navigation }) => {
     }
     return (
         <SafeAreaView style={styles.container}>
+            <KeyboardAvoidingView style={{flex:1}} behavior="position" keyboardVerticalOffset={-150}>
             <View>
                 <View>
                     <Text style={styles.headerText}>Sign Up</Text>
@@ -104,6 +106,7 @@ const Signup = ({ navigation }) => {
                     numberOfLines={1}
                     value={name}
                     onChangeText={(text) => handleOnChange('name', text)}
+                    returnKeyType="next"
                 />
 
                 <Input
@@ -142,6 +145,7 @@ const Signup = ({ navigation }) => {
                     </View>
                 </View>
             </View>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     )
 }

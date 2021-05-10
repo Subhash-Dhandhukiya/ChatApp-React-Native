@@ -3,11 +3,15 @@ const LOGIN="LOGIN"
 const SIGNUP="SIGNUP"
 const DASHBOARD="DASHBOARD"
 const SPLASH="SPLASH"
+const SETTING="SETTING"
+const BOTTOMTAB="BOTTOMTAB"
 
 export {
     WELCOME,
     LOGIN,
     SIGNUP,
     DASHBOARD,
-    SPLASH
+    SPLASH,
+    SETTING,
+    BOTTOMTAB
 };
