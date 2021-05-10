@@ -8,6 +8,7 @@ const WHITE="#fff";
 const FONT2="#57606f";
 const PLACEHOLDER="#57606f"
 const SEMI_TRANSPARENT = "rgba(0,0,0,0.5)";
+const ICON="#778ca3"
 
 
 export {
@@ -18,5 +19,6 @@ export {
     WHITE,
     FONT2,
     PLACEHOLDER,
-    SEMI_TRANSPARENT
+    SEMI_TRANSPARENT,
+    ICON
 }

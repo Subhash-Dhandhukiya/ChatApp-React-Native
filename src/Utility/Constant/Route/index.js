@@ -3,8 +3,9 @@ const LOGIN="LOGIN"
 const SIGNUP="SIGNUP"
 const DASHBOARD="DASHBOARD"
 const SPLASH="SPLASH"
-const SETTING="SETTING"
+const SETTING="Setting"
 const BOTTOMTAB="BOTTOMTAB"
+const PROFILE="PROFILE"
 
 export {
     WELCOME,
@@ -13,5 +14,6 @@ export {
     DASHBOARD,
     SPLASH,
     SETTING,
-    BOTTOMTAB
+    BOTTOMTAB,
+    PROFILE
 };

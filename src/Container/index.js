@@ -4,6 +4,7 @@ import Signup from "./Signup";
 import Welcome from "./Welcome";
 import Splash from './Splash'
 import Setting from './Setting'
+import Profile from './Profile'
 
 export {
     Login,
@@ -11,5 +12,6 @@ export {
     Welcome,
     Dashboard,
     Splash,
-    Setting
+    Setting,
+    Profile
 };

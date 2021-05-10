@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from 'react'
-import { View, Text, SafeAreaView, Alert } from 'react-native';
+import { View, Text, SafeAreaView, Alert, StyleSheet } from 'react-native';
 import { Logout } from '../../../assets/Icon';
 import { color } from '../../Utility';
 
@@ -33,10 +33,19 @@ const Dashboard = ({ navigation }) => {
     }, [navigation])
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={styles.container}>
             <Text>Dashboard</Text>
         </SafeAreaView>
     )
 }
 
 export default Dashboard
+
+const styles=StyleSheet.create({
+    container:{
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:color.WHITE
+    }
+})

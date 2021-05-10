@@ -4,9 +4,9 @@ import {createStackNavigator} from '@react-navigation/stack'
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 
 //import all Screen
-import {Login,Signup,Dashboard,Welcome, Splash, Setting} from '../Container';
+import {Login,Signup,Dashboard,Welcome, Splash, Setting, Profile} from '../Container';
 import {color} from '../Utility';
-import {LOGIN,SIGNUP,WELCOME,DASHBOARD, SPLASH, SETTING, BOTTOMTAB} from '../Utility/Constant/Route'
+import {LOGIN,SIGNUP,WELCOME,DASHBOARD, SPLASH, SETTING, BOTTOMTAB,PROFILE} from '../Utility/Constant/Route'
 import {ChatBoxIcon, SettingIcon} from '../Component/Icon'
 
 const Stack=createStackNavigator();
@@ -15,12 +15,30 @@ const Tab=createBottomTabNavigator();
 const tabBarOptions={
     showLabel:true,
     activeTintColor:color.BLUE,
-    inactiveTintColor:color.PLACEHOLDER
+    inactiveTintColor:color.ICON
 }
 
 const tabBarListeners = ({ navigation, route }) => ({
     tabPress: () => navigation.navigate(route.name),
 });
+
+
+//Setting Screen Navigation
+const SettingStack=createStackNavigator();
+const SettingNavigator=({})=>{
+    return(
+        <SettingStack.Navigator initialRouteName={Setting}>
+            <SettingStack.Screen
+                name={SETTING}
+                component={Setting}
+            />
+            <SettingStack.Screen
+                name={PROFILE}
+                component={Profile}
+            />
+        </SettingStack.Navigator>
+    );
+}
 
 function MainScreen(){
     return(
@@ -44,7 +62,7 @@ function MainScreen(){
             />
             <Tab.Screen 
                 name={SETTING} 
-                component={Setting}
+                component={SettingNavigator}
                 listeners={tabBarListeners}
                 options={{
                     tabBarIcon:({color})=>(
