@@ -6,7 +6,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
 //import all Screen
 import {Login,Signup,Dashboard,Welcome, Splash, Setting, Profile} from '../Container';
 import {color} from '../Utility';
-import {LOGIN,SIGNUP,WELCOME,DASHBOARD, SPLASH, SETTING, BOTTOMTAB,PROFILE} from '../Utility/Constant/Route'
+import {LOGIN,SIGNUP,WELCOME,DASHBOARD, SPLASH, SETTING, BOTTOMTAB,PROFILE, DASHBOARDSCREEN, SETTINGSCREEN} from '../Utility/Constant/Route'
 import {ChatBoxIcon, SettingIcon} from '../Component/Icon'
 
 const Stack=createStackNavigator();
@@ -22,6 +22,23 @@ const tabBarListeners = ({ navigation, route }) => ({
     tabPress: () => navigation.navigate(route.name),
 });
 
+//Dashboard Screen Navigation 
+const DashboardStack=createStackNavigator();
+const DashboardNavigator=({})=>{
+    return(
+        <DashboardStack.Navigator initialRouteName={Dashboard}>
+            <DashboardStack.Screen 
+                name={DASHBOARD}
+                component={Dashboard}
+                options={{
+                    headerLeft:null
+                }}
+            />
+        </DashboardStack.Navigator>
+    );
+}
+
+
 
 //Setting Screen Navigation
 const SettingStack=createStackNavigator();
@@ -31,24 +48,29 @@ const SettingNavigator=({})=>{
             <SettingStack.Screen
                 name={SETTING}
                 component={Setting}
+                options={{
+                    headerLeft:null,
+                }}
             />
             <SettingStack.Screen
                 name={PROFILE}
                 component={Profile}
+                options={{headerShown:null}}
             />
         </SettingStack.Navigator>
     );
 }
 
+
 function MainScreen(){
     return(
         <Tab.Navigator 
-            initialRouteName={Dashboard}
+            initialRouteName={DashboardNavigator}
             tabBarOptions={tabBarOptions}
         >
             <Tab.Screen 
-                name={DASHBOARD} 
-                component={Dashboard}
+                name={DASHBOARDSCREEN} 
+                component={DashboardNavigator}
                 listeners={tabBarListeners}
                 options={{
                     tabBarIcon:({color})=>(
@@ -57,11 +79,11 @@ function MainScreen(){
                             height={25}
                             width={25}
                         />
-                    )
+                    ),
                 }}
             />
             <Tab.Screen 
-                name={SETTING} 
+                name={SETTINGSCREEN} 
                 component={SettingNavigator}
                 listeners={tabBarListeners}
                 options={{
@@ -78,6 +100,7 @@ function MainScreen(){
     );
 }
 
+
 function NavContainer(){
     return (
         <NavigationContainer>
@@ -89,8 +112,7 @@ function NavContainer(){
                     headerTintColor:color.BLUE,
                     headerTitleAlign:'center',
                     headerTitleStyle:{
-                        fontWeight:'bold',
-                        fontSize:20
+                        fontSize:30
                     }
 
                 }}
