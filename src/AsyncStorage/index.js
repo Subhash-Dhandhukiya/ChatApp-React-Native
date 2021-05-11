@@ -36,7 +36,7 @@ const clearAsyncStorage=async()=>{
     try {
         await AsyncStorage.clear();
     } catch (error) {
-        console.log(error)
+        // console.log(error)
     }
 }
 
