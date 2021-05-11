@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { Text, View, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions ,Image} from 'react-native'
+import { Text, View, StyleSheet, TouchableOpacity, SafeAreaView, Dimensions, Image } from 'react-native'
 import { uuid } from '../../Utility/Constant'
 import { Store } from '../../Context/store';
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
@@ -7,7 +7,7 @@ import firebase from 'firebase'
 import { BackIcon } from '../../Component/Icon';
 import { color } from '../../Utility'
 
-const Profile = ({navigation}) => {
+const Profile = ({ navigation }) => {
     const loadingContext = useContext(Store);
     const [UserDetail, setUserDetail] = useState({ id: '', name: '', profileImg: '', email: '' })
 
@@ -41,32 +41,101 @@ const Profile = ({navigation}) => {
             {/*Header 1 */}
             <View style={styles.screen}>
                 <View style={styles.TopHeader}>
-                    <TouchableOpacity style={styles.btn} onPress={()=>navigation.goBack()}>
+                    <TouchableOpacity style={styles.btn} onPress={() => navigation.goBack()}>
                         <BackIcon fill={color.WHITE} height={18} width={18} />
                     </TouchableOpacity>
                     <View style={styles.text}>
-                        <Text style={{ fontSize: 26, color: color.WHITE ,fontWeight:'900',letterSpacing:1}}>Profile </Text>
+                        <Text style={{ fontSize: 26, color: color.WHITE, fontWeight: '900', letterSpacing: 1 }}>Profile </Text>
                     </View>
                 </View>
-                <View style={{height:'100%'}} >
+                <View style={{ height: '100%' }} >
                     <View style={styles.imageContainer}>
                         <View style={styles.imageRound}>
                             {profileImg ? (
-                                <Image source={profileImg} resizeMode="cover"/>
+                                <Image
+                                    source={profileImg}
+                                    resizeMode="cover"
+                                    style={{ width: 140, height: 140, borderRadius: 70 }}
+                                />
                             ) : (
                                 <View>
-                                    <Text style={{fontSize:80,color:color.WHITE}}>{name[0]}</Text>
+                                    <Image
+                                        source={require('../../../assets/Image/user_without_profile.jpg')}
+                                        resizeMode="cover"
+                                        style={{ width: 140, height: 140, borderRadius: 70 }}
+                                    />
                                 </View>
                             )}
                         </View>
+                        <View style={{ marginTop: 18 }}>
+                            <TouchableOpacity onPress={() => console.log("Edit Image Pressed")}>
+                                <Text style={{ fontSize: 16, color: color.WHITE, letterSpacing: 1 }}>Edit Image</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
+            </View>
+            {/*Bottom part of Profile Screen */}
+
+            <View style={{ flex: 0.52 }}>
+                <View style={styles.bottomField}>
+                    <View style={{height:50,width:130,justifyContent:'center'}}>
+                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>FIRST NAME</Text>
+                    </View>
+                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                </View>
+                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+
+
+                <View style={styles.bottomField}>
+                    <View style={{height:50,width:130,justifyContent:'center'}}>
+                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>LAST NAME</Text>
+                    </View>
+                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                </View>
+                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+
+
+                <View style={styles.bottomField}>
+                    <View style={{height:50,width:130,justifyContent:'center'}}>
+                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>GENDER</Text>
+                    </View>
+                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                </View>
+                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+
+                <View style={styles.bottomField}>
+                    <View style={{height:50,width:130,justifyContent:'center'}}>
+                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>BIRTHDAY</Text>
+                    </View>
+                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                </View>
+                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+
+                <View style={styles.bottomField}>
+                    <View style={{height:50,width:130,justifyContent:'center'}}>
+                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>EMAIL</Text>
+                    </View>
+                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                </View>
+                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
             </View>
         </SafeAreaView>
     );
 }
 
 
+{/**
+
+                <View style={styles.bottomField}>
+                    <View style={{height:50,width:150,alignItems:'center',justifyContent:'center'}}>
+                        <Text style={{fontSize:14,left:5,letterSpacing:1}}>FIRST NAME</Text>
+                    </View>
+                    <Text style={{left:10,letterSpacing:1}}>{name}</Text>
+                </View>
+                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+ 
+*/}
 export default Profile;
 
 const { width, height } = Dimensions.get('window')
@@ -75,17 +144,17 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: color.WHITE
     },
-    screen:{
-        flex:0.48,
-        backgroundColor:color.BLUE,
-        borderBottomLeftRadius:30,
-        borderBottomRightRadius:30
+    screen: {
+        flex: 0.48,
+        backgroundColor: color.BLUE,
+        borderBottomLeftRadius: 30,
+        borderBottomRightRadius: 30
     },
     TopHeader: {
         flexDirection: 'row',
         height: 50,
         alignItems: 'center',
-        top:10,
+        top: 10,
     },
     btn: {
         width: 50,
@@ -97,19 +166,25 @@ const styles = StyleSheet.create({
         flex: 1,
         left: width / 4.1
     },
-    imageContainer:{
-        alignItems:'center',
-        justifyContent:'center',
-        top:40,
+    imageContainer: {
+        alignItems: 'center',
+        justifyContent: 'center',
+        top: 40,
     },
-    imageRound:{
-        width:140,
-        height:140,
-        borderRadius:75,
-        borderWidth:6,
-        borderColor:"rgba(255, 255, 255,0.6)",
-        alignItems:'center',
-        justifyContent:'center'
+    imageRound: {
+        width: 140,
+        height: 140,
+        borderRadius: 75,
+        borderWidth: 6,
+        borderColor: "rgba(255, 255, 255,0.6)",
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
+    bottomField: {
+        flexDirection: 'row',
+        height: 50,
+        alignItems: 'center',
+        marginTop: 8
     }
 })
 
