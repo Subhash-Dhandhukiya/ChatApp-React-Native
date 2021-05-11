@@ -5,7 +5,7 @@ import { clearAsyncStorage } from '../../AsyncStorage';
 import Option from '../../Component/Option';
 import { LogoutUser } from '../../Network';
 import { color } from '../../Utility';
-import { LOGIN } from '../../Utility/Constant/Route';
+import { LOGIN, PROFILE } from '../../Utility/Constant/Route';
 
 const Setting = ({navigation}) => {
     
@@ -34,14 +34,14 @@ const Setting = ({navigation}) => {
             .then(()=>{
                 navigation.replace(LOGIN)
             })
-            .catch(error=>console.log(error))
+            .catch(error=>alert(error))
         })
         .catch((error)=>alert(error))
     }
 
     return (
         <View style={styles.container}>
-            <Option title="Profile" onPress={()=>handelLogout()}/>
+            <Option title="Profile" onPress={()=>navigation.navigate(PROFILE)}/>
             <Option title="Theme" onPress={()=>handelLogout()}/>
             <Option title="Logout" onPress={()=>handelLogout()}/>
         </View>

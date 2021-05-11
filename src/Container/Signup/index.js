@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidingView ,Keyboard} from 'react-native'
 import Button from '../../Component/button'
 import Input from '../../Component/Input'
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
@@ -42,8 +42,7 @@ const Signup = ({ navigation }) => {
             loadingContext.loadingDispatch(LOADING_START);
             signupRequest(email, password)
                 .then((res) => {
-
-                    if(!res.addtionalUserInfo){
+                    if(res.additionalUserInfo==null){
                         loadingContext.loadingDispatch(LOADING_STOP);
                         alert(res)
                         return;
