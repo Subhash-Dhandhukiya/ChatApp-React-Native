@@ -1,11 +1,15 @@
 const WELCOME="WELCOME"
 const LOGIN="LOGIN"
 const SIGNUP="SIGNUP"
-const DASHBOARD="DASHBOARD"
+const DASHBOARD="Chats"
 const SPLASH="SPLASH"
 const SETTING="Setting"
 const BOTTOMTAB="BOTTOMTAB"
 const PROFILE="PROFILE"
+const DASHBOARDSCREEN="Dashboard"
+const SETTINGSCREEN="Setting"
+
+
 
 export {
     WELCOME,
@@ -15,5 +19,7 @@ export {
     SPLASH,
     SETTING,
     BOTTOMTAB,
-    PROFILE
+    PROFILE,
+    DASHBOARDSCREEN,
+    SETTINGSCREEN
 };
