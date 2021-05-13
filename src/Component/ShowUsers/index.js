@@ -10,9 +10,10 @@ const ShowUsers = ({ name, img, onImgTap, onNameTap }) => {
                 <View style={styles.left}>
                     <TouchableOpacity onPress={onImgTap} style={styles.imgContainer}>
                         {img ? (
-                            <Image resizeMode="cover" />
+                            <Image source={{uri:img}} resizeMode="cover" style={{width:52,height:52,borderRadius:27}} />
                         ) : (
-                            <Text style={styles.imgTextstyle}>{name[0].toUpperCase()}</Text>
+                            // <Text style={styles.imgTextstyle}>{name[0].toUpperCase()}</Text>
+                            <Image source={require('../../../assets/Image/user_without_profile.jpg')} resizeMode="cover" style={{width:52,height:52,borderRadius:26}}/>
                         )}
                     </TouchableOpacity>
                 </View>

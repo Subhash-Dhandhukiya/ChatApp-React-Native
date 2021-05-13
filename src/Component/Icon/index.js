@@ -4,7 +4,8 @@ import SettingIcon from './Setting'
 import VerticalDotsIcon from './VerticalDot'
 import GreaterThenIcon from './GreaterThen'
 import UserEditIcon from './UserEdit'
-
+import Camera from './Camera'
+import Send from './Send'
 
 export {
     BackIcon,
@@ -12,5 +13,7 @@ export {
     SettingIcon,
     VerticalDotsIcon,
     GreaterThenIcon,
-    UserEditIcon
+    UserEditIcon,
+    Camera,
+    Send
 }
