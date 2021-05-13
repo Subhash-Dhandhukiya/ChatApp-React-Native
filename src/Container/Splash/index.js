@@ -22,7 +22,7 @@ const Splash = ({ navigation }) => {
             })
         }, 1500);
 
-        return ()=>clearTimeout(redirect)
+        // return ()=>clearTimeout(redirect)
 
     }, [navigation])
 
