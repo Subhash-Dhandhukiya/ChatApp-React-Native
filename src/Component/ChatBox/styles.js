@@ -3,11 +3,11 @@ import {color,appStyle} from '../../Utility'
 
 export default StyleSheet.create({
     chatContainer:{
-        backgroundColor:color.WHITE,
+        backgroundColor:color.BLACK,
         borderRadius:20
     },
     chatText:{
-        color:color.BLACK,
+        color:color.WHITE,
         fontSize:18,
         marginVertical:5,
         fontWeight:"500",

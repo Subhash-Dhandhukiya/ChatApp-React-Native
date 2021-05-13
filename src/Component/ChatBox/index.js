@@ -9,7 +9,7 @@ import {TouchableOpacity} from 'react-native-gesture-handler'
 
 const ChatBox=({userId,msg,img,onImgTap})=>{
 
-    let isCurrentUser=userId=uuid ? true :false;
+    let isCurrentUser=userId===uuid ? true :false;
     return (
         <Card
             transparent
