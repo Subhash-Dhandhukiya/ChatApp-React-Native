@@ -5,6 +5,8 @@ import Welcome from "./Welcome";
 import Splash from './Splash'
 import Setting from './Setting'
 import Profile from './Profile'
+import ShowFullImg from "./ShowFullProfile";
+import Chat from "./Chat";
 
 export {
     Login,
@@ -13,5 +15,7 @@ export {
     Dashboard,
     Splash,
     Setting,
-    Profile
+    Profile,
+    ShowFullImg,
+    Chat
 };

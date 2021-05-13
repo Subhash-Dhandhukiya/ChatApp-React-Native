@@ -1,13 +1,16 @@
 import loginRequest from "./Login";
 import LogoutUser from "./Logout";
+import { recieveMsg, senderMsg } from "./Message";
 import signupRequest from "./Signup";
-import {AddUser} from "./User"
+import {AddUser,UpdateUser} from "./User"
 
-LogoutUser
 
 export {
     loginRequest,
     signupRequest,
     AddUser,
-    LogoutUser
+    LogoutUser,
+    UpdateUser,
+    senderMsg,
+    recieveMsg
 }

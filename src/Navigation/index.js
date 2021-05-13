@@ -1,21 +1,25 @@
 import * as React from 'react'
-import {NavigationContainer} from '@react-navigation/native'
-import {createStackNavigator} from '@react-navigation/stack'
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 //import all Screen
-import {Login,Signup,Dashboard,Welcome, Splash, Setting, Profile} from '../Container';
-import {color} from '../Utility';
-import {LOGIN,SIGNUP,WELCOME,DASHBOARD, SPLASH, SETTING, BOTTOMTAB,PROFILE, DASHBOARDSCREEN, SETTINGSCREEN} from '../Utility/Constant/Route'
-import {ChatBoxIcon, SettingIcon} from '../Component/Icon'
+import { Login, Signup, Dashboard, Welcome, Splash, Setting, Profile, ShowFullImg ,Chat} from '../Container';
+import { color } from '../Utility';
+import { LOGIN, SIGNUP, WELCOME, DASHBOARD, SPLASH, SETTING, BOTTOMTAB, PROFILE, DASHBOARDSCREEN, SETTINGSCREEN, SHOWFULLIMG, CHAT } from '../Utility/Constant/Route'
+import { ChatBoxIcon, SettingIcon } from '../Component/Icon'
 
-const Stack=createStackNavigator();
-const Tab=createBottomTabNavigator();
+const Stack = createStackNavigator();
+const Tab = createBottomTabNavigator();
 
-const tabBarOptions={
-    showLabel:true,
-    activeTintColor:color.BLUE,
-    inactiveTintColor:color.ICON
+const tabBarOptions = {
+    showLabel: true,
+    activeTintColor: color.BLUE,
+    inactiveTintColor: color.ICON,
+    keyboardHidesTabBar:true,
+    style:{
+      position:'relative'
+    }
 }
 
 const tabBarListeners = ({ navigation, route }) => ({
@@ -23,16 +27,29 @@ const tabBarListeners = ({ navigation, route }) => ({
 });
 
 //Dashboard Screen Navigation 
-const DashboardStack=createStackNavigator();
-const DashboardNavigator=({})=>{
-    return(
+const DashboardStack = createStackNavigator();
+const DashboardNavigator = ({ }) => {
+    return (
         <DashboardStack.Navigator initialRouteName={Dashboard}>
-            <DashboardStack.Screen 
+            <DashboardStack.Screen
                 name={DASHBOARD}
                 component={Dashboard}
                 options={{
-                    headerLeft:null
+                    headerLeft: null
                 }}
+            />
+
+            <DashboardStack.Screen
+                name={SHOWFULLIMG}
+                component={ShowFullImg}
+                options={{
+                    headerShown: null
+                }}
+            />
+
+            <DashboardStack.Screen
+                name={CHAT}
+                component={Chat}
             />
         </DashboardStack.Navigator>
     );
@@ -41,39 +58,39 @@ const DashboardNavigator=({})=>{
 
 
 //Setting Screen Navigation
-const SettingStack=createStackNavigator();
-const SettingNavigator=({})=>{
-    return(
+const SettingStack = createStackNavigator();
+const SettingNavigator = ({ }) => {
+    return (
         <SettingStack.Navigator initialRouteName={Setting}>
             <SettingStack.Screen
                 name={SETTING}
                 component={Setting}
                 options={{
-                    headerLeft:null,
+                    headerLeft: null,
                 }}
             />
             <SettingStack.Screen
                 name={PROFILE}
                 component={Profile}
-                options={{headerShown:null}}
+                options={{ headerShown: null }}
             />
         </SettingStack.Navigator>
     );
 }
 
 
-function MainScreen(){
-    return(
-        <Tab.Navigator 
+function MainScreen() {
+    return (
+        <Tab.Navigator
             initialRouteName={DashboardNavigator}
             tabBarOptions={tabBarOptions}
         >
-            <Tab.Screen 
-                name={DASHBOARDSCREEN} 
+            <Tab.Screen
+                name={DASHBOARDSCREEN}
                 component={DashboardNavigator}
                 listeners={tabBarListeners}
                 options={{
-                    tabBarIcon:({color})=>(
+                    tabBarIcon: ({ color }) => (
                         <ChatBoxIcon
                             fill={color}
                             height={25}
@@ -82,12 +99,12 @@ function MainScreen(){
                     ),
                 }}
             />
-            <Tab.Screen 
-                name={SETTINGSCREEN} 
+            <Tab.Screen
+                name={SETTINGSCREEN}
                 component={SettingNavigator}
                 listeners={tabBarListeners}
                 options={{
-                    tabBarIcon:({color})=>(
+                    tabBarIcon: ({ color }) => (
                         <SettingIcon
                             fill={color}
                             height={25}
@@ -101,45 +118,45 @@ function MainScreen(){
 }
 
 
-function NavContainer(){
+function NavContainer() {
     return (
-        <NavigationContainer>
-            <Stack.Navigator 
+        <NavigationContainer independent={true}>
+            <Stack.Navigator
                 initialRouteName={SPLASH}
                 screenOptions={{
-                    headerShown:false,
-                    headerStyle:{backgroundColor:color.WHITE},
-                    headerTintColor:color.BLUE,
-                    headerTitleAlign:'center',
-                    headerTitleStyle:{
-                        fontSize:30
+                    headerShown: false,
+                    headerStyle: { backgroundColor: color.WHITE },
+                    headerTintColor: color.BLUE,
+                    headerTitleAlign: 'center',
+                    headerTitleStyle: {
+                        fontSize: 30
                     }
 
                 }}
             >
-                <Stack.Screen 
-                    name={SPLASH} 
+                <Stack.Screen
+                    name={SPLASH}
                     component={Splash}
-                    options={{headerShown:false}}
+                    options={{ headerShown: false }}
                 />
-                <Stack.Screen 
-                    name={WELCOME} 
+                <Stack.Screen
+                    name={WELCOME}
                     component={Welcome}
-                    options={{headerShown:false}}
+                    options={{ headerShown: false }}
                 />
-                <Stack.Screen 
-                    name={LOGIN} 
-                    component={Login} 
-                    options={{headerShown:false}}
+                <Stack.Screen
+                    name={LOGIN}
+                    component={Login}
+                    options={{ headerShown: false }}
                 />
-                <Stack.Screen 
-                    name={SIGNUP} 
-                    component={Signup} 
-                    options={{headerShown:false}}
+                <Stack.Screen
+                    name={SIGNUP}
+                    component={Signup}
+                    options={{ headerShown: false }}
                 />
-                <Stack.Screen 
-                    name={BOTTOMTAB} 
-                    component={MainScreen} 
+                <Stack.Screen
+                    name={BOTTOMTAB}
+                    component={MainScreen}
                 />
             </Stack.Navigator>
         </NavigationContainer>

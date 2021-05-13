@@ -7,6 +7,7 @@ import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import { Profile, ShowUsers } from '../../Component'
 import { uuid } from '../../Utility/Constant'
 import { Store } from '../../Context/store';
+import { SHOWFULLIMG,CHAT } from '../../Utility/Constant/Route';
 
 const Dashboard = ({ navigation }) => {
 
@@ -55,6 +56,24 @@ const Dashboard = ({ navigation }) => {
         }
     }, [])
 
+
+    //Show user's full profile Picture
+    const imgTap=(profileImg,name)=>{
+       navigation.navigate(SHOWFULLIMG,{
+           name:name,
+           img:profileImg
+       })
+    }
+
+    //Start Conversation between usert
+    const nameTap=(profileImg,name,guestUserId)=>{
+        navigation.navigate(CHAT,{
+            name:name,
+            guestUserId:guestUserId,
+            currentUserId:uuid,
+            img:profileImg
+        })
+    }
  
     return (
         <SafeAreaView style={styles.container}>
@@ -65,7 +84,9 @@ const Dashboard = ({ navigation }) => {
                 renderItem={({item})=>(
                     <ShowUsers
                         name={item.name}
-                        img={item.img}
+                        img={item.profileImg}
+                        onImgTap={()=>imgTap(item.profileImg,item.name)}
+                        onNameTap={()=>nameTap(item.profileImg,item.name,item.id)}
                     />
                 )}
             />

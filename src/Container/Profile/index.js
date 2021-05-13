@@ -6,6 +6,9 @@ import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import firebase from 'firebase'
 import { BackIcon } from '../../Component/Icon';
 import { color } from '../../Utility'
+import * as ImagePicker from 'react-native-image-picker'
+import { UpdateUser } from '../../Network'
+import ImgToBase64 from 'react-native-image-base64';
 
 const Profile = ({ navigation }) => {
     const loadingContext = useContext(Store);
@@ -36,6 +39,45 @@ const Profile = ({ navigation }) => {
         }
     }, [])
 
+    //Image selection function
+    const selectPhotoTapped = () => {
+        let option = {
+            storageOptions: {
+                skipBackup: true
+            }
+        };
+
+        ImagePicker.launchImageLibrary(option, (res) => {
+            if (res.didCancel) {
+                console.log('User Cancelled image picker')
+            } else if (res.errorMessage) {
+                console.log("Image Picker error", res.errorMessage)
+            } else {
+                // Base 64
+
+                const image = res.uri;
+
+                ImgToBase64.getBase64String(image)
+                    .then(base64String => {
+                        loadingContext.loadingDispatch(LOADING_START);
+                        UpdateUser(uuid, base64String)
+                            .then(() => {
+                                setUserDetail({
+                                    ...UserDetail,
+                                    profileImg: `data:image;base64+${base64String}`
+                                })
+                                loadingContext.loadingDispatch(LOADING_STOP);
+                            })
+                            .catch((error) => {
+                                loadingContext.loadingDispatch(LOADING_STOP);
+                                alert(error);
+                            })
+                    })
+                    .catch(err => console.log(err));
+            }
+        })
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             {/*Header 1 */}
@@ -53,7 +95,7 @@ const Profile = ({ navigation }) => {
                         <View style={styles.imageRound}>
                             {profileImg ? (
                                 <Image
-                                    source={profileImg}
+                                    source={{ uri: profileImg }}
                                     resizeMode="cover"
                                     style={{ width: 140, height: 140, borderRadius: 70 }}
                                 />
@@ -68,7 +110,7 @@ const Profile = ({ navigation }) => {
                             )}
                         </View>
                         <View style={{ marginTop: 18 }}>
-                            <TouchableOpacity onPress={() => console.log("Edit Image Pressed")}>
+                            <TouchableOpacity onPress={() => selectPhotoTapped()}>
                                 <Text style={{ fontSize: 16, color: color.WHITE, letterSpacing: 1 }}>Edit Image</Text>
                             </TouchableOpacity>
                         </View>
@@ -79,63 +121,53 @@ const Profile = ({ navigation }) => {
 
             <View style={{ flex: 0.52 }}>
                 <View style={styles.bottomField}>
-                    <View style={{height:50,width:130,justifyContent:'center'}}>
-                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>FIRST NAME</Text>
+                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>FIRST NAME</Text>
                     </View>
-                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
                 </View>
-                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
 
                 <View style={styles.bottomField}>
-                    <View style={{height:50,width:130,justifyContent:'center'}}>
-                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>LAST NAME</Text>
+                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>LAST NAME</Text>
                     </View>
-                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
                 </View>
-                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
 
                 <View style={styles.bottomField}>
-                    <View style={{height:50,width:130,justifyContent:'center'}}>
-                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>GENDER</Text>
+                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>GENDER</Text>
                     </View>
-                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
                 </View>
-                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
                 <View style={styles.bottomField}>
-                    <View style={{height:50,width:130,justifyContent:'center'}}>
-                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>BIRTHDAY</Text>
+                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>BIRTHDAY</Text>
                     </View>
-                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
                 </View>
-                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
                 <View style={styles.bottomField}>
-                    <View style={{height:50,width:130,justifyContent:'center'}}>
-                        <Text style={{fontSize:14,left:25,letterSpacing:1,color:color.PLACEHOLDER}}>EMAIL</Text>
+                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>EMAIL</Text>
                     </View>
-                    <Text style={{left:10,letterSpacing:1,fontSize:16}}>{name}</Text>
+                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
                 </View>
-                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
+                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
             </View>
         </SafeAreaView>
     );
 }
 
 
-{/**
 
-                <View style={styles.bottomField}>
-                    <View style={{height:50,width:150,alignItems:'center',justifyContent:'center'}}>
-                        <Text style={{fontSize:14,left:5,letterSpacing:1}}>FIRST NAME</Text>
-                    </View>
-                    <Text style={{left:10,letterSpacing:1}}>{name}</Text>
-                </View>
-                <View style={{width:"85%",height:0.5,backgroundColor:color.PLACEHOLDER,alignSelf:'center'}}/>
- 
-*/}
 export default Profile;
 
 const { width, height } = Dimensions.get('window')
@@ -214,35 +246,33 @@ const styles = StyleSheet.create({
 
 
 
+// const selectPhotoTapped=()=>{
+//     let option={
+//         storageOptions:{
+//             skipBackup:true
+//         }
+//     };
 
-// import React from 'react'
-// import {Image,View,Text} from 'react-native'
-// import styles from './Style'
-// import {globalStyle,color} from '../../Utility'
-// import {TouchableOpacity} from 'react-native-gesture-handler'
-// import { UserEditIcon } from '../../Component/Icon'
-
-// export default ({img,name,onImgTap,onEditTab})=>{
-//     <View style={[globalStyle.sectionCentered]}>
-//         <View>
-//             <TouchableOpacity onPress={onImgTap} activeOpacity={0.8}>
-//                 {img?(
-//                     <Image source={{uri:img}} style={styles.img} resizeMode="cover"/>
-//                 ):(
-//                     <View style={[globalStyle.sectionCentered,styles.img,{backgroundColor:color.ICON}]}>
-//                         <Text>{name[0]}</Text>
-//                     </View>
-//                 )}
-//             </TouchableOpacity>
-//             <View style={[globalStyle.sectionCentered,styles.editImgContainer]}>
-//                 <UserEditIcon
-//                     fill={color.ICON}
-//                     width={20}
-//                     height={20}
-//                     onPress={onEditTab}
-//                 />
-//             </View>
-//         </View>
-//         <Text style={styles.welcome}>{name}</Text>
-//     </View>
+//     ImagePicker.launchImageLibrary(option,(res)=>{
+//         if(res.didCancel){
+//             console.log('User Cancel image picker')
+//         }else if(res.errorMessage){
+//             console.log("Image Picker error",res.errorMessage)
+//         }else{
+//             // Base 64
+//             let source='data:image/jpeg:base64'+res.data;
+//             loadingContext.loadingDispatch(LOADING_START);
+//             UpdateUser(uuid,source)
+//             .then(()=>{
+//                 setUserDetail({
+//                     ...UserDetail,
+//                     profileImg:source
+//                 })
+//             })
+//             .catch((error)=>{
+//                 loadingContext.loadingDispatch(LOADING_STOP);
+//                 alert(error);
+//             })
+//         }
+//     })
 // }

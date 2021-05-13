@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native';
 import React from 'react'
 import { View, Text ,StyleSheet, Alert} from 'react-native'
 import { clearAsyncStorage } from '../../AsyncStorage';
@@ -6,9 +5,11 @@ import Option from '../../Component/Option';
 import { LogoutUser } from '../../Network';
 import { color } from '../../Utility';
 import { LOGIN, PROFILE } from '../../Utility/Constant/Route';
+import {useNavigation} from '@react-navigation/native'
 
 const Setting = ({navigation}) => {
     
+    const Navigation=useNavigation();
     const handelLogout=()=>{
         Alert.alert(
             "Logout",
@@ -41,7 +42,7 @@ const Setting = ({navigation}) => {
 
     return (
         <View style={styles.container}>
-            <Option title="Profile" onPress={()=>navigation.navigate(PROFILE)}/>
+            <Option title="Profile" onPress={()=>Navigation.navigate(PROFILE)}/>
             <Option title="Theme" onPress={()=>handelLogout()}/>
             <Option title="Logout" onPress={()=>handelLogout()}/>
         </View>

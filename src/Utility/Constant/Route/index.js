@@ -8,7 +8,8 @@ const BOTTOMTAB="BOTTOMTAB"
 const PROFILE="PROFILE"
 const DASHBOARDSCREEN="Dashboard"
 const SETTINGSCREEN="Setting"
-
+const SHOWFULLIMG="SHOWFULLIMG"
+const CHAT="CHAT"
 
 
 export {
@@ -21,5 +22,7 @@ export {
     BOTTOMTAB,
     PROFILE,
     DASHBOARDSCREEN,
-    SETTINGSCREEN
+    SETTINGSCREEN,
+    SHOWFULLIMG,
+    CHAT
 };
