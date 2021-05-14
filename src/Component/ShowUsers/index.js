@@ -3,7 +3,7 @@ import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { color } from '../../Utility';
 // import styles from './styles'
 
-const ShowUsers = ({ name, img, onImgTap, onNameTap }) => {
+const ShowUsers = ({ fname, lname,img, onImgTap, onNameTap }) => {
     return (
         <View style={{marginBottom:5,left:3,top:2}}>
             <View style={styles.container}>
@@ -19,7 +19,8 @@ const ShowUsers = ({ name, img, onImgTap, onNameTap }) => {
                 </View>
                 <View style={styles.body}>
                     <TouchableOpacity style={styles.bodyPart} onPress={onNameTap}>
-                        <Text style={styles.nameStyle}>{name}</Text>
+                        <Text style={styles.nameStyle}>{fname}</Text>
+                        <Text style={styles.nameStyle}> { lname}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={styles.right}>
@@ -46,7 +47,8 @@ const styles = StyleSheet.create({
         justifyContent:'center'
     },
     body: {
-        width: "70%"
+        width: "70%",
+        paddingLeft:7
     },
     right: {
         width: '15%'
@@ -60,6 +62,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         backgroundColor:'#b2bec3',
+        left:3
     },
     border:{
         width:"85%",
@@ -74,7 +77,8 @@ const styles = StyleSheet.create({
     bodyPart:{
         flex:1,
         top:10,
-        left:10
+        left:10,
+        flexDirection:'row'
     },
     nameStyle:{
         fontSize:18,
