@@ -3,12 +3,12 @@ import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidin
 import Button from '../../Component/button'
 import Input from '../../Component/Input'
 import { color } from '../../Utility'
-import { BOTTOMTAB, DASHBOARD, SIGNUP } from '../../Utility/Constant/Route'
+import { BOTTOMTAB, SIGNUP } from '../../Utility/Constant/Route'
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import { Store } from '../../Context/store'
 import { loginRequest } from '../../Network'
 import { setAsyncStorage, keys } from '../../AsyncStorage'
-import { setUniqueValue, keyboardVerticalOffset } from '../../Utility/Constant'
+import { setUniqueValue } from '../../Utility/Constant'
 
 const Login = ({ navigation }) => {
 

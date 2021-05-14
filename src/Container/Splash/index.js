@@ -20,9 +20,9 @@ const Splash = ({ navigation }) => {
                 // console.log(error)
                 navigation.replace(LOGIN)
             })
-        }, 1500);
+        }, 3000);
 
-        // return ()=>clearTimeout(redirect)
+        return ()=>clearTimeout(redirect)
 
     }, [navigation])
 

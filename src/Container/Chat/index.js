@@ -1,15 +1,13 @@
-import React, { Fragment, useEffect, useState } from 'react'
-import { View, SafeAreaView, FlatList, TouchableOpacity, KeyboardAvoidingView, TouchableWithoutFeedback, Platform, Keyboard } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import { ChatBox, Input } from '../../Component';
 import { Camera, Send } from '../../Component/Icon';
-import { color, globalStyle } from '../../Utility';
+import { color } from '../../Utility';
 import styles from './styles'
 import firebase from '../../Firebase/config'
 import * as ImagePicker from 'react-native-image-picker'
 import ImgToBase64 from 'react-native-image-base64';
 import { recieverMsg, senderMsg } from '../../Network';
-import { deviceHeight } from '../../Utility/StyleHelper/appStyle';
-import { smallDeviceHeigh } from '../../Utility/Constant';
 import { SHOWFULLIMG } from '../../Utility/Constant/Route';
 
 
@@ -47,7 +45,6 @@ const Chat = ({ route, navigation }) => {
                         });
                     });
                     setMesseges(msgs.reverse());
-                    console.log(msgs)
                 });
         } catch (error) {
             alert(error);
@@ -114,7 +111,7 @@ const Chat = ({ route, navigation }) => {
 
     const imgTap=(chatimg)=>{
         navigation.navigate(SHOWFULLIMG,{
-            name,
+            fname,
             img:chatimg
         })
     }

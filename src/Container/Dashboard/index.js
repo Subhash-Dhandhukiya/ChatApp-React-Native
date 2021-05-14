@@ -13,10 +13,10 @@ const Dashboard = ({ navigation }) => {
 
     const loadingContext = useContext(Store);
 
-    const [userDetail, setUserDetail] = useState({ id: '', name: '', profileImg: '' })
+    const [userDetail, setUserDetail] = useState({ id: '', fname: '', profileImg: '' ,lname:''})
     const [allUsers, setAllUsers] = useState([]);
 
-    const {profileImg,name,id}=userDetail
+    const {profileImg,fname,id,lname}=userDetail
     useLayoutEffect(() => {
 
     }, [navigation])
@@ -29,19 +29,23 @@ const Dashboard = ({ navigation }) => {
                 let user = [];
                 let currentUser = {
                     id: '',
-                    name: '',
-                    profileImg: ''
+                    fname: '',
+                    profileImg: '',
+                    lname:'',
                 }
                 dataSnapShot.forEach((child) => {
                     if (uuid === child.val().uuid) {
                         currentUser.id = uuid;
-                        currentUser.name = child.val().name;
+                        currentUser.fname = child.val().firstname;
                         currentUser.profileImg = child.val().profileImg;
+                        currentUser.lname=child.val().lastname;
+
                     } else {
                         user.push({
                             id: child.val().uuid,
-                            name: child.val().name,
+                            fname: child.val().firstname,
                             profileImg:child.val().profileImg,
+                            lname:child.val().lastname
                         })
                     } 
                 })
@@ -83,10 +87,11 @@ const Dashboard = ({ navigation }) => {
                 keyExtractor={(_,index)=>index.toString()}
                 renderItem={({item})=>(
                     <ShowUsers
-                        name={item.name}
+                        fname={item.fname}
+                        lname={item.lname}
                         img={item.profileImg}
-                        onImgTap={()=>imgTap(item.profileImg,item.name)}
-                        onNameTap={()=>nameTap(item.profileImg,item.name,item.id)}
+                        onImgTap={()=>imgTap(item.profileImg,item.fname)}
+                        onNameTap={()=>nameTap(item.profileImg,item.fname,item.id)}
                     />
                 )}
             />

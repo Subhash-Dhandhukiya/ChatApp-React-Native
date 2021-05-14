@@ -12,21 +12,22 @@ import ImgToBase64 from 'react-native-image-base64';
 
 const Profile = ({ navigation }) => {
     const loadingContext = useContext(Store);
-    const [UserDetail, setUserDetail] = useState({ id: '', name: '', profileImg: '', email: '' })
+    const [UserDetail, setUserDetail] = useState({ id: '', fname: '', profileImg: '', email: '', lname: '', Gender: '' })
 
-    const { id, name, profileImg, email } = UserDetail;
+    const { fname, profileImg, email, lname } = UserDetail;
 
     useEffect(() => {
         loadingContext.loadingDispatch(LOADING_START);
         try {
             firebase.database().ref('user').on('value', (dataSnapShot) => {
-                let currentUser = { id: '', name: '', profileImg: '', email: '' }
+                let currentUser = { id: '', fname: '', profileImg: '', email: '', lname: '' }
                 dataSnapShot.forEach((child) => {
                     if (uuid === child.val().uuid) {
                         currentUser.id = uuid;
-                        currentUser.name = child.val().name;
+                        currentUser.fname = child.val().firstname;
                         currentUser.email = child.val().email;
                         currentUser.profileImg = child.val().profileImg;
+                        currentUser.lname = child.val().lastname;
                     }
                 })
                 setUserDetail(currentUser);
@@ -37,7 +38,7 @@ const Profile = ({ navigation }) => {
             loadingContext.loadingDispatch(LOADING_STOP);
             alert(error);
         }
-    }, [])
+    }, [profileImg])
 
     //Image selection function
     const selectPhotoTapped = () => {
@@ -97,7 +98,7 @@ const Profile = ({ navigation }) => {
                                 <Image
                                     source={{ uri: profileImg }}
                                     resizeMode="cover"
-                                    style={{ width: 140, height: 140, borderRadius: 70 }}
+                                    style={{ width: 130, height: 130, borderRadius: 70 }}
                                 />
                             ) : (
                                 <View>
@@ -120,47 +121,33 @@ const Profile = ({ navigation }) => {
             {/*Bottom part of Profile Screen */}
 
             <View style={{ flex: 0.52 }}>
-                <View style={styles.bottomField}>
-                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>FIRST NAME</Text>
+                <View style={{marginTop:25}}>
+                    <View style={styles.bottomField}>
+                        <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>FIRST NAME</Text>
+                        </View>
+                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{fname}</Text>
                     </View>
-                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
-                </View>
-                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
+                    <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
 
-                <View style={styles.bottomField}>
-                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>LAST NAME</Text>
+                    <View style={styles.bottomField}>
+                        <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>LAST NAME</Text>
+                        </View>
+                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{lname}</Text>
                     </View>
-                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
-                </View>
-                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
+                    <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
 
-                <View style={styles.bottomField}>
-                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>GENDER</Text>
+                    <View style={styles.bottomField}>
+                        <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
+                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>EMAIL</Text>
+                        </View>
+                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{email}</Text>
                     </View>
-                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
+                    <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
                 </View>
-                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
-
-                <View style={styles.bottomField}>
-                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>BIRTHDAY</Text>
-                    </View>
-                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
-                </View>
-                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
-
-                <View style={styles.bottomField}>
-                    <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                        <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>EMAIL</Text>
-                    </View>
-                    <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{name}</Text>
-                </View>
-                <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
             </View>
         </SafeAreaView>
     );
@@ -170,7 +157,7 @@ const Profile = ({ navigation }) => {
 
 export default Profile;
 
-const { width, height } = Dimensions.get('window')
+const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -220,59 +207,3 @@ const styles = StyleSheet.create({
     }
 })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// const selectPhotoTapped=()=>{
-//     let option={
-//         storageOptions:{
-//             skipBackup:true
-//         }
-//     };
-
-//     ImagePicker.launchImageLibrary(option,(res)=>{
-//         if(res.didCancel){
-//             console.log('User Cancel image picker')
-//         }else if(res.errorMessage){
-//             console.log("Image Picker error",res.errorMessage)
-//         }else{
-//             // Base 64
-//             let source='data:image/jpeg:base64'+res.data;
-//             loadingContext.loadingDispatch(LOADING_START);
-//             UpdateUser(uuid,source)
-//             .then(()=>{
-//                 setUserDetail({
-//                     ...UserDetail,
-//                     profileImg:source
-//                 })
-//             })
-//             .catch((error)=>{
-//                 loadingContext.loadingDispatch(LOADING_STOP);
-//                 alert(error);
-//             })
-//         }
-//     })
-// }

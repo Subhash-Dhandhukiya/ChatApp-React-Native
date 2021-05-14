@@ -1,11 +1,11 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidingView ,Keyboard} from 'react-native'
+import React, { useContext, useState } from 'react'
+import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native'
 import Button from '../../Component/button'
 import Input from '../../Component/Input'
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import { Store } from '../../Context/store'
 import { color } from '../../Utility'
-import { BOTTOMTAB, DASHBOARD, LOGIN, } from '../../Utility/Constant/Route'
+import { BOTTOMTAB, LOGIN, } from '../../Utility/Constant/Route'
 import { AddUser, signupRequest } from '../../Network'
 import firebase from '../../Firebase/config'
 import { setAsyncStorage, keys } from '../../AsyncStorage'
@@ -15,8 +15,8 @@ const Signup = ({ navigation }) => {
 
     const loadingContext = useContext(Store);
 
-    const [credentials, setCredentials] = useState({ email: "", password: "", name: "", confirmPassword: "" })
-    const { email, password, name, confirmPassword } = credentials;
+    const [credentials, setCredentials] = useState({ email: "", password: "", fname: "", confirmPassword: "", lname: "" })
+    const { email, password, fname, confirmPassword, lname } = credentials;
 
 
     const handleOnChange = (name, value) => {
@@ -28,8 +28,10 @@ const Signup = ({ navigation }) => {
 
     const onSignUpPress = () => {
         Keyboard.dismiss();
-        if (!name) {
-            alert("Name is required")
+        if (!fname) {
+            alert("First Name is required")
+        } else if (!lname) {
+            alert("Last Name is required")
         } else if (!email) {
             alert("Email is required")
         } else if (!password) {
@@ -42,7 +44,7 @@ const Signup = ({ navigation }) => {
             loadingContext.loadingDispatch(LOADING_START);
             signupRequest(email, password)
                 .then((res) => {
-                    if(res.additionalUserInfo==null){
+                    if (res.additionalUserInfo == null) {
                         loadingContext.loadingDispatch(LOADING_STOP);
                         alert(res)
                         return;
@@ -50,7 +52,7 @@ const Signup = ({ navigation }) => {
 
                     let uid = firebase.auth().currentUser.uid
                     let profileImg = "";
-                    AddUser(name, email, uid, profileImg)
+                    AddUser(fname, lname, email, uid, profileImg)
                         .then(() => {
                             setAsyncStorage(keys.uuid, uid);
                             setUniqueValue(uid);
@@ -87,63 +89,72 @@ const Signup = ({ navigation }) => {
     }
     return (
         <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView style={{flex:1}} behavior="position" keyboardVerticalOffset={-150}>
-            <View>
+            <KeyboardAvoidingView style={{ flex: 1 }} behavior="position" keyboardVerticalOffset={-150}>
                 <View>
-                    <Text style={styles.headerText}>Sign Up</Text>
-                </View>
-                <View style={{ marginTop: 10, paddingLeft: 20 }}>
-                    <Text style={styles.txt}>Please Registration with email and sign up</Text>
-                    <Text style={styles.txt}>to continue using our app.</Text>
-                </View>
-            </View>
-
-            {/*This is Input Field */}
-            <SafeAreaView style={styles.middle}>
-                <Input
-                    placeholder="Name"
-                    numberOfLines={1}
-                    value={name}
-                    onChangeText={(text) => handleOnChange('name', text)}
-                    returnKeyType="next"
-                />
-
-                <Input
-                    placeholder="Email"
-                    numberOfLines={1}
-                    value={email}
-                    onChangeText={(text) => handleOnChange('email', text)}
-                />
-                <Input
-                    placeholder="Password"
-                    numberOfLines={1}
-                    value={password}
-                    onChangeText={(text) => handleOnChange('password', text)}
-                    secureTextEntry={true}
-                />
-                <Input
-                    placeholder="Confirm Password"
-                    numberOfLines={1}
-                    value={confirmPassword}
-                    onChangeText={(text) => handleOnChange('confirmPassword', text)}
-                    secureTextEntry={true}
-                />
-            </SafeAreaView>
-
-            <View style={{ marginTop: 10 }}>
-                <View style={{ alignItems: 'center' }}>
-                    <Button
-                        title="Sign up"
-                        onPress={() => onSignUpPress()}
-                    />
-                    <View style={{ flexDirection: 'row' }}>
-                        <Text>You already have an account?</Text>
-                        <TouchableOpacity onPress={() => navigation.navigate(LOGIN)}>
-                            <Text style={{ color: color.BLUE }}> Login</Text>
-                        </TouchableOpacity>
+                    <View>
+                        <Text style={styles.headerText}>Sign Up</Text>
+                    </View>
+                    <View style={{ marginTop: 10, paddingLeft: 20 }}>
+                        <Text style={styles.txt}>Please Registration with email and sign up</Text>
+                        <Text style={styles.txt}>to continue using our app.</Text>
                     </View>
                 </View>
-            </View>
+
+                {/*This is Input Field */}
+                <SafeAreaView style={styles.middle}>
+                    <Input
+                        placeholder="First Name"
+                        numberOfLines={1}
+                        value={fname}
+                        onChangeText={(text) => handleOnChange('fname', text)}
+                        returnKeyType="next"
+                    />
+
+                    <Input
+                        placeholder="Last Name"
+                        numberOfLines={1}
+                        value={lname}
+                        onChangeText={(text) => handleOnChange('lname', text)}
+                        returnKeyType="next"
+                    />
+
+                    <Input
+                        placeholder="Email"
+                        numberOfLines={1}
+                        value={email}
+                        onChangeText={(text) => handleOnChange('email', text)}
+                    />
+
+                    <Input
+                        placeholder="Password"
+                        numberOfLines={1}
+                        value={password}
+                        onChangeText={(text) => handleOnChange('password', text)}
+                        secureTextEntry={true}
+                    />
+                    <Input
+                        placeholder="Confirm Password"
+                        numberOfLines={1}
+                        value={confirmPassword}
+                        onChangeText={(text) => handleOnChange('confirmPassword', text)}
+                        secureTextEntry={true}
+                    />
+                </SafeAreaView>
+
+                <View style={{ marginTop: 10 }}>
+                    <View style={{ alignItems: 'center' }}>
+                        <Button
+                            title="Sign up"
+                            onPress={() => onSignUpPress()}
+                        />
+                        <View style={{ flexDirection: 'row' }}>
+                            <Text>You already have an account?</Text>
+                            <TouchableOpacity onPress={() => navigation.navigate(LOGIN)}>
+                                <Text style={{ color: color.BLUE }}> Login</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     )
