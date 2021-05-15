@@ -8,7 +8,7 @@ export default StyleSheet.create({
     },
     chatText:{
         color:color.WHITE,
-        fontSize:18,
+        fontSize:15,
         marginVertical:5,
         fontWeight:"500",
         padding:8

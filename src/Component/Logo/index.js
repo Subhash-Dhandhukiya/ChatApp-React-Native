@@ -16,7 +16,7 @@ export default class Logo extends Component {
         return (
             <View style={styles.container}>
                 <LottieView
-                    autoPlay    
+                    autoPlay   
                     source={require('../../../assets/Splash/splash.json')}
                 />
             </View>

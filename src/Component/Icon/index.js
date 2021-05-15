@@ -6,6 +6,7 @@ import GreaterThenIcon from './GreaterThen'
 import UserEditIcon from './UserEdit'
 import Camera from './Camera'
 import Send from './Send'
+import circle from './circle'
 
 export {
     BackIcon,
@@ -15,5 +16,6 @@ export {
     GreaterThenIcon,
     UserEditIcon,
     Camera,
-    Send
+    Send,
+    circle
 }
