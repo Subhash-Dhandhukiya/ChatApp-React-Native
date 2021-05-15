@@ -8,13 +8,19 @@ import { Profile, ShowUsers } from '../../Component'
 import { uuid } from '../../Utility/Constant'
 import { Store } from '../../Context/store';
 import { SHOWFULLIMG,CHAT } from '../../Utility/Constant/Route';
+import {ThemeContext} from '../../ThemeContext'
 
 const Dashboard = ({ navigation }) => {
 
     const loadingContext = useContext(Store);
+    const {theme}=useContext(ThemeContext)
 
     const [userDetail, setUserDetail] = useState({ id: '', fname: '', profileImg: '' ,lname:''})
     const [allUsers, setAllUsers] = useState([]);
+
+    //For Dark Mode 
+    const BACKGROUNDCOLOR=theme=="Light"?color.WHITE:color.BLACK
+    const FONTCOLOR=theme=="Light"?color.BLACK:color.WHITE
 
     const {profileImg,fname,id,lname}=userDetail
     useLayoutEffect(() => {
@@ -80,9 +86,9 @@ const Dashboard = ({ navigation }) => {
     }
  
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container,{backgroundColor:BACKGROUNDCOLOR}]}>
             <View style={styles.header}>
-                <Text style={styles.txt}>CHATS</Text>
+                <Text style={[styles.txt,{color:FONTCOLOR}]}>CHATS</Text>
             </View>
             <View style={{height:1,width:"100%",backgroundColor:color.WHITE,shadowColor: 'rgba(0, 0, 0, 0.2)',elevation:1}}/>
             <FlatList
@@ -108,7 +114,6 @@ export default Dashboard
 const styles = StyleSheet.create({
     container: {
         flex:1,
-        backgroundColor: color.WHITE
     },
     header:{
         height:48,
@@ -120,7 +125,6 @@ const styles = StyleSheet.create({
     },
     txt:{
         fontSize:20,
-        color:color.FONT,
         letterSpacing:0.7
     }
 })

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { View, SafeAreaView, FlatList, TouchableOpacity } from 'react-native'
 import { ChatBox, Input } from '../../Component';
 import { Camera, Send } from '../../Component/Icon';
@@ -9,6 +9,7 @@ import * as ImagePicker from 'react-native-image-picker'
 import ImgToBase64 from 'react-native-image-base64';
 import { recieverMsg, senderMsg } from '../../Network';
 import { SHOWFULLIMG } from '../../Utility/Constant/Route';
+import {ThemeContext} from '../../ThemeContext'
 
 
 const Chat = ({ route, navigation }) => {
@@ -18,6 +19,11 @@ const Chat = ({ route, navigation }) => {
     const [msgValue, setMsgValue] = useState('');
     const [message, setMesseges] = useState([]);
 
+
+    //For Dark Mode theme
+    const {theme}=useContext(ThemeContext);
+    const BACKGROUND_COLOR=theme=="Light"?'#f1f2f6':"#1e272e"
+    const ICON_COLOR=theme=="Light"?color.DARK_GRAY:color.WHITE
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -49,7 +55,6 @@ const Chat = ({ route, navigation }) => {
         } catch (error) {
             alert(error);
         }
-        console.log(message)
     }, []);
 
 
@@ -118,7 +123,7 @@ const Chat = ({ route, navigation }) => {
 
 
     return (
-        <SafeAreaView style={{ flex: 1, backgroundColor: '#f1f2f6' }}>
+        <SafeAreaView style={{ flex: 1, backgroundColor: BACKGROUND_COLOR }}>
             <FlatList
                 inverted
                 data={message}
@@ -136,7 +141,7 @@ const Chat = ({ route, navigation }) => {
             {/*send message */}
             <View style={styles.sendMessageContainer}>
                 <Input
-                    placeholder="Type Here"
+                    placeholder="Type here..."
                     numberOfLines={10}
                     inputStyle={styles.input}
                     onChangeText={(text) => handleOnChange(text)}
@@ -144,10 +149,10 @@ const Chat = ({ route, navigation }) => {
                 />
                 <View style={styles.sendBtnContainer}>
                     <TouchableOpacity onPress={() => handleCamera()}>
-                        <Camera fill={color.DARK_GRAY} height={30} width={30} />
+                        <Camera fill={ICON_COLOR} height={30} width={30} />
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => handleSend()}>
-                        <Send fill={color.DARK_GRAY} height={30} width={30} style={{ right: 10 }} />
+                        <Send fill={ICON_COLOR} height={28} width={28} style={{ right: 10 }} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -156,16 +161,6 @@ const Chat = ({ route, navigation }) => {
     )
 }
 
-export default Chat
-
-
-
-
-
-
-
-
-// 
-
+export default Chat;
 
 

@@ -6,7 +6,7 @@ export default StyleSheet.create({
         flexDirection:'row',
         alignItems:'center',
         alignContent:'center',
-        bottom:-10
+        
     },
     input:{
         borderTopLeftRadius:20,

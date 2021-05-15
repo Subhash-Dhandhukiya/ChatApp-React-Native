@@ -9,12 +9,20 @@ import { color } from '../../Utility'
 import * as ImagePicker from 'react-native-image-picker'
 import { UpdateUser } from '../../Network'
 import ImgToBase64 from 'react-native-image-base64';
+import {ThemeContext} from '../../ThemeContext'
 
 const Profile = ({ navigation }) => {
     const loadingContext = useContext(Store);
     const [UserDetail, setUserDetail] = useState({ id: '', fname: '', profileImg: '', email: '', lname: '', Gender: '' })
 
     const { fname, profileImg, email, lname } = UserDetail;
+
+    //For Dark Mode Theme
+    const {theme}=useContext(ThemeContext)
+    const BACKGROUND_COLOR=theme=="Light"?color.WHITE:color.BLACK
+    const SCREEN_BACKGROUND_COLOR=theme=="Light"?color.BLUE:'#2f3640'
+    const FONT_COLOR=theme=="Light"?color.PLACEHOLDER:'#718093'
+    const DATA=theme=="Light"?color.FONT:color.WHITE
 
     useEffect(() => {
         loadingContext.loadingDispatch(LOADING_START);
@@ -80,9 +88,9 @@ const Profile = ({ navigation }) => {
     }
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={[styles.container,{backgroundColor:BACKGROUND_COLOR}]}>
             {/*Header 1 */}
-            <View style={styles.screen}>
+            <View style={[styles.screen,{backgroundColor:SCREEN_BACKGROUND_COLOR}]}>
                 <View style={styles.TopHeader}>
                     <TouchableOpacity style={styles.btn} onPress={() => navigation.goBack()}>
                         <BackIcon fill={color.WHITE} height={18} width={18} />
@@ -124,27 +132,27 @@ const Profile = ({ navigation }) => {
                 <View style={{marginTop:25}}>
                     <View style={styles.bottomField}>
                         <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>FIRST NAME</Text>
+                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: FONT_COLOR}}>FIRST NAME</Text>
                         </View>
-                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{fname}</Text>
+                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 ,color:DATA}}>{fname}</Text>
                     </View>
                     <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
 
                     <View style={styles.bottomField}>
                         <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>LAST NAME</Text>
+                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: FONT_COLOR}}>LAST NAME</Text>
                         </View>
-                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{lname}</Text>
+                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 ,color:DATA}}>{lname}</Text>
                     </View>
                     <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
 
 
                     <View style={styles.bottomField}>
                         <View style={{ height: 50, width: 130, justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: color.PLACEHOLDER }}>EMAIL</Text>
+                            <Text style={{ fontSize: 14, left: 25, letterSpacing: 1, color: FONT_COLOR}}>EMAIL</Text>
                         </View>
-                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16 }}>{email}</Text>
+                        <Text style={{ left: 10, letterSpacing: 1, fontSize: 16,color:DATA }}>{email}</Text>
                     </View>
                     <View style={{ width: "85%", height: 0.5, backgroundColor: color.PLACEHOLDER, alignSelf: 'center' }} />
                 </View>
@@ -161,11 +169,9 @@ const { width } = Dimensions.get('window')
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: color.WHITE
     },
     screen: {
         flex: 0.48,
-        backgroundColor: color.BLUE,
         borderBottomLeftRadius: 30,
         borderBottomRightRadius: 30
     },

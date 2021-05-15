@@ -1,13 +1,18 @@
-import React, { useLayoutEffect } from 'react'
+import React, { useContext, useLayoutEffect } from 'react'
 import { View, Text ,StyleSheet, Alert} from 'react-native'
 import { clearAsyncStorage } from '../../AsyncStorage';
 import Option from '../../Component/Option';
 import { LogoutUser } from '../../Network';
 import { color } from '../../Utility';
 import { LOGIN, PROFILE, THEME } from '../../Utility/Constant/Route';
+import {ThemeContext} from '../../ThemeContext'
 
 const Setting = ({navigation}) => {
     
+    //For Dark Mode theme
+    const {theme,setTheme}=useContext(ThemeContext);
+    const BACKGROUNDCOLOR=theme=="Light"?color.WHITE:color.BLACK;
+    const FONT=theme=="Light"?color.FONT:color.WHITE;
 
     React.useLayoutEffect(() => {
         navigation.setOptions({
@@ -38,6 +43,7 @@ const Setting = ({navigation}) => {
         .then(()=>{
             clearAsyncStorage()
             .then(()=>{
+                setTheme("Light")
                 navigation.replace(LOGIN)
             })
             .catch(error=>alert(error))
@@ -51,9 +57,9 @@ const Setting = ({navigation}) => {
     }
 
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <Text style={styles.txt}>SETTING</Text>
+        <View style={[styles.container,{backgroundColor:BACKGROUNDCOLOR}]}>
+            <View style={[styles.header,{backgroundColor:BACKGROUNDCOLOR}]}>
+                <Text style={[styles.txt,{color:FONT}]}>SETTING</Text>
             </View>
             <View style={{height:1,width:"100%",backgroundColor:color.WHITE,shadowColor: 'rgba(0, 0, 0, 0.2)',elevation:1}}/>
             <Option title="Profile" onPress={()=>navigation.navigate(PROFILE)}/>
@@ -68,7 +74,6 @@ export default Setting;
 const styles=StyleSheet.create({
     container:{
         flex:1,
-        backgroundColor:color.WHITE
     },
     header:{
         height:48,
