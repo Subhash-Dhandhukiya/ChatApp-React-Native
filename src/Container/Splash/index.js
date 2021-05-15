@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { getAsyncStorage, keys } from '../../AsyncStorage'
-import { BOTTOMTAB, DASHBOARD, LOGIN, WELCOME } from '../../Utility/Constant/Route'
+import { BOTTOMTAB, DASHBOARD, DASHBOARDSCREEN, LOGIN, WELCOME } from '../../Utility/Constant/Route'
 import {setUniqueValue} from '../../Utility/Constant'
 import Logo from '../../Component/Logo/index'
 
@@ -11,7 +11,7 @@ const Splash = ({ navigation }) => {
             .then((uuid) => {
                 if (uuid) {
                     setUniqueValue(uuid)
-                    navigation.replace(BOTTOMTAB)
+                    navigation.replace(DASHBOARDSCREEN)
                 } else {
                     navigation.replace(WELCOME)
                 }

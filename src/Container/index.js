@@ -7,6 +7,8 @@ import Setting from './Setting'
 import Profile from './Profile'
 import ShowFullImg from "./ShowFullProfile";
 import Chat from "./Chat";
+import Theme from "./Theme";
+
 
 export {
     Login,
@@ -17,5 +19,6 @@ export {
     Setting,
     Profile,
     ShowFullImg,
-    Chat
+    Chat,
+    Theme
 };

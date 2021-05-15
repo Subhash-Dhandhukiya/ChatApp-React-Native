@@ -81,6 +81,10 @@ const Dashboard = ({ navigation }) => {
  
     return (
         <SafeAreaView style={styles.container}>
+            <View style={styles.header}>
+                <Text style={styles.txt}>CHATS</Text>
+            </View>
+            <View style={{height:1,width:"100%",backgroundColor:color.WHITE,shadowColor: 'rgba(0, 0, 0, 0.2)',elevation:1}}/>
             <FlatList
                 alwaysBounceVertical={false}
                 data={allUsers}
@@ -105,5 +109,18 @@ const styles = StyleSheet.create({
     container: {
         flex:1,
         backgroundColor: color.WHITE
+    },
+    header:{
+        height:48,
+        alignItems:'center',
+        justifyContent:"center",
+        shadowColor: 'rgba(0, 0, 0, 0.6)',
+        shadowOpacity:0.2,
+        elevation:6
+    },
+    txt:{
+        fontSize:20,
+        color:color.FONT,
+        letterSpacing:0.7
     }
 })

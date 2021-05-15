@@ -3,7 +3,7 @@ import { View, Text, SafeAreaView, StyleSheet, TouchableOpacity, KeyboardAvoidin
 import Button from '../../Component/button'
 import Input from '../../Component/Input'
 import { color } from '../../Utility'
-import { BOTTOMTAB, SIGNUP } from '../../Utility/Constant/Route'
+import { BOTTOMTAB, DASHBOARD, DASHBOARDSCREEN, SIGNUP } from '../../Utility/Constant/Route'
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import { Store } from '../../Context/store'
 import { loginRequest } from '../../Network'
@@ -46,7 +46,7 @@ const Login = ({ navigation }) => {
                     setAsyncStorage(keys.uuid, res.user.uid);
                     setUniqueValue(res.user.uid);
                     loadingContext.loadingDispatch(LOADING_STOP);
-                    navigation.replace(BOTTOMTAB);
+                    navigation.replace(DASHBOARDSCREEN);
                 })
                 .catch(error => {
                     loadingContext.loadingDispatch(LOADING_STOP);
