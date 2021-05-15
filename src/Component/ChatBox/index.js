@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import {View,Text,Image} from 'react-native'
 import {Card,CardItem} from 'native-base'
 import {deviceWidth} from '../../Utility/StyleHelper/appStyle'
@@ -6,10 +6,17 @@ import {uuid} from '../../Utility/Constant'
 import styles from './styles'
 import {color} from '../../Utility'
 import {TouchableOpacity} from 'react-native-gesture-handler'
+import {ThemeContext} from '../../ThemeContext'
 
 const ChatBox=({userId,msg,img,onImgTap})=>{
 
+    const {theme} =useContext(ThemeContext)
+
     let isCurrentUser=userId===uuid ? true :false;
+    
+    const BACKGROUNDCOLOR=theme=="Light"?color.GREY:color.DARK_THEME_CHATBOX_BACKGROUND
+    const TEXTCOLOR=theme=="Light"?color.BLACK:color.WHITE
+
     return (
         <Card
             transparent
@@ -21,10 +28,11 @@ const ChatBox=({userId,msg,img,onImgTap})=>{
             <View 
                 style={[
                     styles.chatContainer,
+                    {backgroundColor:BACKGROUNDCOLOR},
                     isCurrentUser && {
                         borderTopLeftRadius:20,
                         borderTopRightRadius:20,
-                        backgroundColor:color.DARK_GRAY
+                        backgroundColor:BACKGROUNDCOLOR
                     }
                 ]}
             >
@@ -39,7 +47,7 @@ const ChatBox=({userId,msg,img,onImgTap})=>{
                         </TouchableOpacity>
                     </CardItem>
                 ) : (
-                    <Text style={[styles.chatText,isCurrentUser && {color:color.WHITE}]}>
+                    <Text style={[styles.chatText,{color:TEXTCOLOR},isCurrentUser && {color:TEXTCOLOR}]}>
                         {msg}
                     </Text>
                 )}

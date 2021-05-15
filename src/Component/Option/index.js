@@ -1,13 +1,21 @@
-import React from 'react'
-import { View, Text,TouchableOpacity, StyleSheet} from 'react-native'
+import React, { useContext } from 'react'
+import { View, Text,TouchableOpacity, StyleSheet, ColorPropType} from 'react-native'
 import { color } from '../../Utility';
 import { GreaterThenIcon } from '../Icon';
+import {ThemeContext} from '../../ThemeContext'
 
 const Option = ({title,onPress}) => {
+
+    //For dark theme
+    const {theme}=useContext(ThemeContext)
+    const BACKGROUNDCOLOR=theme=="Light"?color.WHITE:color.BLACK
+    const FONT=theme=="Light"?color.BLACK:color.WHITE
+    const BORDER_BACKGROUND_COLOR=theme=="Light"?color.FONT:"#222831"
+
     return (
        <View>
-            <TouchableOpacity onPress={onPress} style={styles.container}>
-            <Text style={styles.text}>{title}</Text>
+            <TouchableOpacity onPress={onPress} style={[styles.container,{backgroundColor:BACKGROUNDCOLOR}]}>
+            <Text style={[styles.text,{color:FONT}]}>{title}</Text>
             <GreaterThenIcon
                 fill={color.ICON}
                 height={15}
@@ -15,7 +23,7 @@ const Option = ({title,onPress}) => {
                 style={styles.icon}
             />
         </TouchableOpacity>
-        <View style={styles.border}/>
+        <View style={[styles.border,{backgroundColor:BORDER_BACKGROUND_COLOR}]}/>
        </View>
     )
 }
@@ -41,7 +49,6 @@ const styles=StyleSheet.create({
     border:{
         width:"100%",
         height:0.5,
-        backgroundColor:color.ICON,
         alignSelf:'center'
     }
 })

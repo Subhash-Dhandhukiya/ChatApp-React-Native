@@ -1,9 +1,15 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { Text, View, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { color } from '../../Utility';
-// import styles from './styles'
+import {ThemeContext} from '../../ThemeContext'
 
 const ShowUsers = ({ fname, lname,img, onImgTap, onNameTap }) => {
+
+    //For Dark Mode
+    const {theme}=useContext(ThemeContext);
+    const FONTCOLOR=theme=="Light"?color.BLACK:color.WHITE
+    const BACKGROUNDCOLOR_BORDER=theme=="Light"?'#dfe6e9':'#222831'
+
     return (
         <View style={{marginBottom:5,left:3,top:2}}>
             <View style={styles.container}>
@@ -12,24 +18,18 @@ const ShowUsers = ({ fname, lname,img, onImgTap, onNameTap }) => {
                         {img ? (
                             <Image source={{uri:img}} resizeMode="cover" style={{width:52,height:52,borderRadius:27}} />
                         ) : (
-                            // <Text style={styles.imgTextstyle}>{name[0].toUpperCase()}</Text>
                             <Image source={require('../../../assets/Image/user_without_profile.jpg')} resizeMode="cover" style={{width:52,height:52,borderRadius:26}}/>
                         )}
                     </TouchableOpacity>
                 </View>
                 <View style={styles.body}>
                     <TouchableOpacity style={styles.bodyPart} onPress={onNameTap}>
-                        <Text style={styles.nameStyle}>{fname}</Text>
-                        <Text style={styles.nameStyle}> { lname}</Text>
+                        <Text style={[styles.nameStyle,{color:FONTCOLOR}]}>{fname}</Text>
+                        <Text style={[styles.nameStyle,{color:FONTCOLOR}]}> { lname}</Text>
                     </TouchableOpacity>
                 </View>
-                <View style={styles.right}>
-                    <View>
-                        <Text></Text>
-                    </View>
-                </View>
             </View>
-            <View style={styles.border}/>
+            <View style={[styles.border,{backgroundColor:BACKGROUNDCOLOR_BORDER}]}/>
         </View>
     )
 }
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
         borderColor: color.WHITE,
         alignItems:'center',
         justifyContent:'center',
-        backgroundColor:'#b2bec3',
+        // backgroundColor:'#b2bec3',
         left:3
     },
     border:{
@@ -82,6 +82,5 @@ const styles = StyleSheet.create({
     },
     nameStyle:{
         fontSize:18,
-        color:color.BLUE
     }
 })

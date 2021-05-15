@@ -1,7 +1,7 @@
 import * as React from "react"
 import Svg, { Path } from "react-native-svg"
 
-function circle(props) {
+function Circle(props) {
   return (
     <Svg
       height={512}
@@ -15,4 +15,4 @@ function circle(props) {
   )
 }
 
-export default circle
+export default Circle
