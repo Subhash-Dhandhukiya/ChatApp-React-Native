@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { NavigationContainer } from '@react-navigation/native'
+import { NavigationContainer,DarkTheme,DefaultTheme } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
@@ -9,6 +9,7 @@ import { Login, Signup, Dashboard, Welcome, Splash, Setting, Profile, ShowFullIm
 import { color } from '../Utility';
 import { LOGIN, SIGNUP, WELCOME, DASHBOARD, SPLASH, SETTING, PROFILE, DASHBOARDSCREEN, SHOWFULLIMG, CHAT, THEME } from '../Utility/Constant/Route'
 import { ChatBoxIcon, SettingIcon } from '../Component/Icon'
+import {ThemeContext} from '../ThemeContext'
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -70,8 +71,12 @@ function HomeTabs() {
 
 
 const NavContainer = () => {
+
+    const {theme}=React.useContext(ThemeContext)
+    const Mode=theme=="Light"?DefaultTheme:DarkTheme;
+
     return (
-        <NavigationContainer>
+        <NavigationContainer theme={Mode}>
             <Stack.Navigator>
                 <Stack.Screen 
                     name={SPLASH} 
