@@ -29,7 +29,6 @@ const Chat = ({ route, navigation }) => {
 
         let isOnline = null;
         firebase.database().ref("online").child(guestUserId).on('value', dataSnapshot => { isOnline = dataSnapshot })
-        console.log(isOnline);
         navigation.setOptions({
             // title: name,
             title: (
@@ -40,32 +39,74 @@ const Chat = ({ route, navigation }) => {
             )
         });
 
+
+
     }, [navigation]);
+
+
+
+    //Update msg
+
+    function UpdateMessage(child, data) {
+
+        console.log("Child Key => ", child)
+        console.log("Child Data =>", data)
+        firebase
+            .database()
+            .ref("messeges")
+            .child(guestUserId)
+            .child(currentUserId)
+            .update({
+                [child]: {
+                    sender: data.val().sender,
+                    reciever: data.val().reciever,
+                    msg: data.val().msg,
+                    img: data.val().img,
+                    seen_msg: true
+                }
+            })
+    }
+
+    function UpdateGuestMessage() {
+        firebase
+            .database()
+            .ref("messeges")
+            .child(guestUserId)
+            .child(currentUserId)
+            .on('value', (dataSnapshot) => {
+                dataSnapshot.forEach((child) => {
+                    UpdateMessage(child.key, child)
+                })
+            })
+    }
+
 
 
     useEffect(() => {
         try {
-          firebase
-            .database()
-            .ref("messeges")
-            .child(currentUserId)
-            .child(guestUserId)
-            .on("value", (dataSnapshot) => {
-              let msgs = [];
-              dataSnapshot.forEach((child) => {
-                msgs.push({
-                  sendBy: child.val().messege.sender,
-                  recievedBy: child.val().messege.reciever,
-                  msg: child.val().messege.msg,
-                  img: child.val().messege.img,
+            firebase
+                .database()
+                .ref("messeges")
+                .child(currentUserId)
+                .child(guestUserId)
+                .on("value", (dataSnapshot) => {
+                    let msgs = [];
+                    dataSnapshot.forEach((child) => {
+                        msgs.push({
+                            sendBy: child.val().sender,
+                            recievedBy: child.val().reciever,
+                            msg: child.val().msg,
+                            img: child.val().img,
+                            seen_msg: child.val().seen_msg
+                        });
+                    });
+                    setMesseges(msgs.reverse());
                 });
-              });
-              setMesseges(msgs.reverse());
-            });
         } catch (error) {
-          alert(error);
+            alert(error);
         }
-      }, []);
+        UpdateGuestMessage();
+    }, []);
 
 
 
