@@ -8,6 +8,8 @@ import Camera from './Camera'
 import Send from './Send'
 import Circle from './Circle'
 import FullCircle from './FullCircle'
+import Tick from './Tick'
+import Double_Tick from './Double_Tick'
 
 
 export {
@@ -20,5 +22,7 @@ export {
     Camera,
     Send,
     Circle,
-    FullCircle
+    FullCircle,
+    Tick,
+    Double_Tick
 }

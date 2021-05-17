@@ -10,10 +10,10 @@ export default StyleSheet.create({
         borderRadius:20
     },
     chatText:{
-         color:color.WHITE,
+        color:color.WHITE,
         fontSize:15,
         marginVertical:5,
         fontWeight:"500",
-        padding:8
+        padding:8,
     }
 })
