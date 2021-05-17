@@ -5,7 +5,7 @@ import Input from '../../Component/Input'
 import { LOADING_START, LOADING_STOP } from '../../Context/actions/type'
 import { Store } from '../../Context/store'
 import { color } from '../../Utility'
-import { BOTTOMTAB, LOGIN, } from '../../Utility/Constant/Route'
+import { BOTTOMTAB, LOGIN,DASHBOARD } from '../../Utility/Constant/Route'
 import { AddUser, signupRequest } from '../../Network'
 import firebase from '../../Firebase/config'
 import { setAsyncStorage, keys } from '../../AsyncStorage'
@@ -57,7 +57,7 @@ const Signup = ({ navigation }) => {
                             setAsyncStorage(keys.uuid, uid);
                             setUniqueValue(uid);
                             loadingContext.loadingDispatch(LOADING_STOP);
-                            navigation.replace(BOTTOMTAB)
+                            navigation.replace(DASHBOARD)
                         })
                         .catch((error) => {
                             loadingContext.loadingDispatch(LOADING_STOP);

@@ -23,8 +23,15 @@ const Dashboard = ({ navigation }) => {
     const FONTCOLOR=theme=="Light"?color.BLACK:color.WHITE
 
     const {profileImg,fname,id,lname}=userDetail
-    useLayoutEffect(() => {
+    useEffect(() => {
+        //This is for check user online or not
+        const userId=uuid;
+        const reference=firebase.database().ref(`/online/${userId}`)
+        reference.set(true)
 
+        reference
+        .onDisconnect()
+        .remove()
     }, [navigation])
 
 
