@@ -4,6 +4,7 @@ import Loader from './src/Component/Loader'
 import { StatusBar } from 'react-native'
 import { StoreProvider } from './src/Context/store'
 import { ThemeContext } from './src/ThemeContext'
+
 const App = () => {
 
   const [theme,setTheme]=useState("Light")
