@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { View, SafeAreaView, FlatList, TouchableOpacity, Text } from 'react-native'
+import { View, SafeAreaView, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native'
 import { ChatBox, Input } from '../../Component';
-import { Camera, Send } from '../../Component/Icon';
+import { BackIcon, Camera, Send } from '../../Component/Icon';
 import { color } from '../../Utility';
 import styles from './styles'
 import firebase from '../../Firebase/config'
@@ -10,6 +10,7 @@ import ImgToBase64 from 'react-native-image-base64';
 import { recieverMsg, senderMsg } from '../../Network';
 import { SHOWFULLIMG } from '../../Utility/Constant/Route';
 import { ThemeContext } from '../../ThemeContext'
+import { uuid } from '../../Utility/Constant';
 
 
 const Chat = ({ route, navigation }) => {
@@ -25,12 +26,23 @@ const Chat = ({ route, navigation }) => {
     const BACKGROUND_COLOR = theme == "Light" ? '#f1f2f6' : "#1e272e"
     const ICON_COLOR = theme == "Light" ? color.DARK_GRAY : color.WHITE
 
-    React.useLayoutEffect(() => {
 
+    let isOnline=null;
+    React.useLayoutEffect(() => {
         let isOnline = null;
         firebase.database().ref("online").child(guestUserId).on('value', dataSnapshot => { isOnline = dataSnapshot })
         navigation.setOptions({
             // title: name,
+            title: (
+                <View>
+                    <Text style={{ fontSize: 19 }}>{name}</Text>
+                    {isOnline == "true" ? <Text style={{ fontSize: 12.5 }}>Online</Text> : (null)}
+                </View>
+            )
+        })
+
+        navigation.setOptions({
+
             title: (
                 <View>
                     <Text style={{ fontSize: 19 }}>{name}</Text>
@@ -48,9 +60,6 @@ const Chat = ({ route, navigation }) => {
     //Update msg
 
     function UpdateMessage(child, data) {
-
-        console.log("Child Key => ", child)
-        console.log("Child Data =>", data)
         firebase
             .database()
             .ref("messeges")
@@ -59,7 +68,7 @@ const Chat = ({ route, navigation }) => {
             .update({
                 [child]: {
                     sender: data.val().sender,
-                    reciever: data.val().reciever,
+                    reciever  : data.val().reciever,
                     msg: data.val().msg,
                     img: data.val().img,
                     seen_msg: true
@@ -216,5 +225,3 @@ const Chat = ({ route, navigation }) => {
 }
 
 export default Chat;
-
-
